@@ -1,0 +1,53 @@
+.footer {
+  border-top: 1px solid #eeeeee;
+  border-spacing: 10px 10px;
+}
+
+.info-text {
+  font-size: 12px;
+  font-style: italic;
+}
+
+.row {
+  margin-right: 20px;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  float: right;
+}
+
+.jumbotron {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.display-table {
+  display: table;
+  border-spacing: 20px 20px
+}
+
+.facts-container p {
+  font-size: 14px;
+  padding: 0px 10px 0px 10px;
+}
+
+.display-row {
+  display: table-row;
+}
+
+.display-cell {
+  display: table-cell;
+  width: 50%;
+}
+
+.traffic-facts .display-cell {
+  width: 25%;
+}
+
+.traffic-facts img {
+  width: 100%;
+}

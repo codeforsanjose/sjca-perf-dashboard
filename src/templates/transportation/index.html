@@ -1,0 +1,74 @@
+{% extends 'common/base.html' %}
+
+{% block main-content %}
+  {{ block.super }}
+  <div class="row">
+    <h2>Transportation Department</h2>
+    <p>In 2014-15, the Transportation Department’s (DOT) operating expenditures
+      totaled $79 million,* about 26 percent more than ten years ago. DOT had
+      426 authorized positions, but staffing was still 10 percent
+      lower than 10 years ago.</p>
+    </div>
+  <div class="row">
+    <div id="op-exp-service" style="min-width: 500px; margin-top: 30px"></div>
+    <div class="info-text">
+      * DOT was also responsible for approximately $5.8 million of Citywide
+      expenses in 2013-14, including about $2.1 million in parking citations/jail
+      courthouse fees, and $1.3 million for sidewalk repairs.
+      DOT also had authority over approximately $178 million in special funding
+      and capital improvement programs for parking and traffic.
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div id="op-exp" style="min-width: 500px; margin-top: 30px"></div>
+    </div>
+    <div class="col-sm-6">
+      <div id="auth-position" style="min-width: 500px; margin-top: 30px"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="display-table">
+      <div class="display-row">
+        {% include 'transportation/key-facts.html' %}
+        {% include 'transportation/ncs-travel.html' %}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div id="mode-of-commute" style="min-width: 500px; margin-top: 30px"></div>
+    </div>
+    <div class="info-text">
+      San José‘s goal is to increase substantially the proportion of commute
+      travel using modes other than the single-occupant vehicle by 2040. For
+      example, no more than 40 percent of commute trips should be driving
+      alone, and transit should comprise at least 20 percent.
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block javascript %}
+  $(function () {
+    $.getJSON("{% url 'op-exp-by-serivce' %}")
+    .done(function(data) {
+      $('#op-exp-service').highcharts(data.chartData);
+    })
+
+    $.getJSON("{% url 'op-expenditure' %}")
+    .done(function(data) {
+      $('#op-exp').highcharts(data.chartData);
+    })
+
+    $.getJSON("{% url 'auth-position' %}")
+    .done(function(data) {
+      $('#auth-position').highcharts(data.chartData);
+    })
+
+    $.getJSON("{% url 'mode-of-commute' %}")
+    .done(function(data) {
+      $('#mode-of-commute').highcharts(data.chartData);
+    })
+  });
+{% endblock %}

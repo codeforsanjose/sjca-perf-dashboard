@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>City of San Jose</title>
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap-theme.css' %}" rel="stylesheet">
+    <link href="{% static 'css/sidebar.css' %}" rel="stylesheet">
+    <link href="{% static 'css/sea-perf.css' %}" rel="stylesheet">
+  </head>
+
+  <body>
+    {% block header %}
+      {% include 'common/header.html' %}
+    {% endblock %}
+
+    <div class="main-content">
+      <div class="col-sm-3">
+        {% include 'common/sidebar.html' %}
+      </div>
+      <div class="col-sm-9">
+        {% block main-content %}
+        <div class="row">
+          <h1>2014-15 Service Efforts and Accomplishments</h1>
+        </div>
+        {% endblock %}
+
+        {% include 'common/footer.html' %}
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script>
+      Highcharts.setOptions({
+        lang: {
+          thousandsSep: ','
+        }
+      });
+      {% block javascript %}
+      {% endblock %}
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,126 @@
+{% extends 'common/base.html' %}
+{% load staticfiles %}
+
+{% block main-content %}
+  {{ block.super }}
+  <div class="row">
+    <h2>Traffic Maintenance</h2>
+    <p>The Traffic Maintenance Division is responsible for maintaining the City’s
+      traffic signals, traffic signs, roadway markings, and streetlights.
+      In 2014-15, DOT made 2,200 repairs to traffic signals. DOT responded to
+      signal malfunctions within 30 minutes 55 percent of the time, down by 5
+      percentage points since the year prior.
+    </p>
+    <p>DOT’s response to traffic and street name sign service requests fell within
+      established priority guidelines 97 percent* of the time in 2014-15. 2,700
+      signs were preventively maintained.
+    </p>
+    <p>Roadway marking services were completed within established priority
+      guidelines 99 percent* of the time in 2014-15. 65 percent of roadway
+      markings met visibility and operational guidelines. This is down from 80
+      percent in 2007-08, when the City had identified the visibility of roadway
+      markings as a priority and set aside one-time funding for markings.
+    </p>
+    <p>97 percent of San José’s 64,000 streetlights were operational.
+      44 percent of malfunctions were repaired within seven days, compared to 87
+      percent in 2009-10. LED streetlight conversions and new installations
+      continue; in 2014-15, about 19,000 new LED lights were installed. More than
+      4,400 streetlight outages were caused by stolen or cut wire in 2014-15.
+      With temporary resources, DOT eliminated the repair backlog and is
+      responding to most new cases within 2 to 4 weeks.
+    </p>
+  </div>
+  <div class="row">
+    <div class="display-table traffic-facts">
+      <div class="display-row">
+          <div class="jumbotron display-cell">
+            <p class="center">Traffic signals</p>
+            <div class="facts-container">
+              <p>923 traffic signal intersections in San José</p>
+              <p>2,200 repairs and 500 preventive maintenance activities
+              completed
+              </p>
+              <p>55% of malfunctions responded to within 30 minutes</p>
+            </div>
+          </div>
+          <div class="jumbotron display-cell">
+            <p class="center">Traffic and Street Name Signs</p>
+            <div class="facts-container">
+              <p>114,000 traffic control and street name signs in
+                San José (estimate)
+              </p>
+              <p>1,200 repairs and 2,700 preventive maintenance activities
+                completed
+              </p>
+              <p>97% service requests completed within established
+                guidelines*
+              </p>
+              <p>78% of signs in good condition
+              </p>
+              <p class="help-text">
+                * 24 hours, 7 days, or 21 days—depending on the priority
+              </p>
+            </div>
+          </div>
+          <div class="jumbotron display-cell">
+            <p class="center">Roadway Markings</p>
+            <div class="facts-container">
+              <p>5.5 million square feet of roadway markings</p>
+              <p>495 maintenance requests completed</p>
+              <p>99% of service requests completed within prioritized
+                operational guidelines*</p>
+              <p>65% of markings met visibility and operational guidelines</p>
+              <p class="help-text">
+                * 24 hours, 7 days, or 21 days—depending on the priority
+              </p>
+            </div>
+          </div>
+          <div class="jumbotron display-cell">
+            <p class="center">Streetlights</p>
+            <div class="facts-container">
+              <p>64,000 streetlights in San José 23,300 LED streetlights
+                (November 2015)</p>
+              <p>17,500 repairs completed</p>
+              <p>44% of malfunctions repaired within 7 days</p>
+              <p>97% of streetlights in operational condition</p>
+            </div>
+          </div>
+      </div>
+      <div class="display-row">
+        <div class="display-cell">
+        </div>
+        <div class="display-cell">
+          <img src="{% static 'images/traffic-street.png' %}">
+        </div>
+        <div class="display-cell">
+        </div>
+        <div class="display-cell">
+          <img src="{% static 'images/traffic-road.png' %}">
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div id="signal-activities" style="min-width: 500px; margin-top: 30px"></div>
+    </div>
+    <div class="col-sm-6">
+      <div id="roadway-markings" style="min-width: 500px; margin-top: 30px"></div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block javascript %}
+  $(function () {
+    $.getJSON("{% url 'signal-activities' %}")
+    .done(function(data) {
+      $('#signal-activities').highcharts(data.chartData);
+    })
+
+    $.getJSON("{% url 'roadway-markings' %}")
+    .done(function(data) {
+      $('#roadway-markings').highcharts(data.chartData);
+    })
+
+  });
+{% endblock %}

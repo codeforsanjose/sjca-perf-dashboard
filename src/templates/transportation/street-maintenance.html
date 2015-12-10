@@ -1,0 +1,52 @@
+{% extends 'common/base.html' %}
+{% load staticfiles %}
+
+{% block main-content %}
+  {{ block.super }}
+  <div class="row">
+    <h2>Streetscapes Maintenance</h2>
+    <p>DOT’s Landscape Services Division maintains median islands and undeveloped
+      rights-of-way, and ensures the repair of sidewalks and the maintenance of
+      street trees. In 2014-15, DOT maintenance staff provided basic
+      safety-related and complaint-driven activities to keep an estimated 54
+      percent of street landscapes in good condition, down from 68 percent 10
+      years ago.
+    </p>
+    <p>There are an estimated 268,000 street trees in the City.* DOT responded
+      to 474 emergencies for street tree maintenance in 2014-15. DOT indicated
+      that emergency street tree repairs were largely a result of stormy weather and
+      extremely hot or windy days and that 2014-15 was a mild year. The City
+      initiated 7,300 sidewalk repairs in 2014-15, more than double the amount 10
+      years ago because of added staffing.
+    </p>
+    <div class="info-text">
+      * Property owners are typically responsible for maintaining street trees
+      and repairing adjacent sidewalks. The City maintains trees that are located
+      within the arterial medians and roadside landscaped areas owned by the City.
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div id="street-landscape" style="min-width: 500px; margin-top: 30px"></div>
+    </div>
+    <div class="col-sm-6">
+      <div id="sidewalk-repairs" style="min-width: 500px; margin-top: 30px"></div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block javascript %}
+  $(function () {
+    $.getJSON("{% url 'street-landscape' %}")
+    .done(function(data) {
+      $('#street-landscape').highcharts(data.chartData);
+    })
+
+    $.getJSON("{% url 'sidewalk-repairs' %}")
+    .done(function(data) {
+      $('#sidewalk-repairs').highcharts(data.chartData);
+    })
+
+  });
+{% endblock %}

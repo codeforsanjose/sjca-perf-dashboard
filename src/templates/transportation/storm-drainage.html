@@ -1,0 +1,64 @@
+{% extends 'common/base.html' %}
+{% load staticfiles %}
+
+{% block main-content %}
+  {{ block.super }}
+  <div class="row">
+    <h2>Storm Drainage</h2>
+    <div class="col-sm-12">
+      DOT annually cleans about 30,000 storm drain inlets so that rain and
+      storm water runoff flows unimpeded through storm drains into the San
+      Francisco Bay. Proactive cleaning of storm drains inlets prevents harmful
+      pollutants, trash, and debris from entering the Bay and reduces the
+      potential for blockages during heavy rains. In 2014-15, DOT responded to
+      1,472 storm calls. The number of stoppages and calls varies depending
+      on the severity of rainfall. DOT also maintains 29 storm water pump
+      stations and cleans the wet-wells during the summer.
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div id="street-sweeping" style="min-width: 500px; margin-top: 30px"></div>
+      <div class="info-text">
+        Estimates. According to DOT, staffing fluctuations led to a decrease
+        in miles swept by City crews.
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div id="storm-calls" style="min-width: 500px; margin-top: 30px"></div>
+      <div class="info-text">
+        2008-09 estimated. 2009-10 was an above-normal storm year.
+        Prior to 2014-15, this counted only storm drain inlet stoppages.
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div id="drain-requests" style="min-width: 500px; margin-top: 30px"></div>
+      <div class="info-text">
+        The types of requests counted for this measure changed in 2014-15.
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block javascript %}
+  $(function () {
+    $.getJSON("{% url 'street-sweeping' %}")
+    .done(function(data) {
+      $('#street-sweeping').highcharts(data.chartData);
+    })
+
+    $.getJSON("{% url 'storm-calls' %}")
+    .done(function(data) {
+      $('#storm-calls').highcharts(data.chartData);
+    })
+
+    $.getJSON("{% url 'drain-requests' %}")
+    .done(function(data) {
+      $('#drain-requests').highcharts(data.chartData);
+    })
+
+  });
+{% endblock %}

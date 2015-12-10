@@ -1,0 +1,46 @@
+{% extends 'common/base.html' %}
+{% load staticfiles %}
+
+{% block main-content %}
+  {{ block.super }}
+  <div class="row">
+    <h2>Parking</h2>
+    <p>Parking Services is responsible for managing on-street and off-street
+      parking,implementing parking policies and regulations, and supporting
+      street sweeping, construction, and maintenance activities. Monthly parking
+      in 2014-15 reached approximately 95,000 monthly customers in City
+      facilities, up 63 percent compared to 10 years ago. About 1.7 million
+      downtown customers used City parking facilities in 2014-15, up 5 percent
+      compared to the prior year.
+    </p>
+    <p>The Department issued about 204,000 parking citations in 2014-15, 5
+      percent below the prior year because of staff vacancies. 90 percent of
+      abandoned vehicles were moved by the owner or otherwise in compliance by
+      DOT’s second visit.
+    </p>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div id="parking-downtown" style="min-width: 500px; margin-top: 30px"></div>
+    </div>
+    <div class="col-sm-6">
+      <div id="parking-citations" style="min-width: 500px; margin-top: 30px"></div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block javascript %}
+  $(function () {
+    $.getJSON("{% url 'parking-downtown' %}")
+    .done(function(data) {
+      $('#parking-downtown').highcharts(data.chartData);
+    })
+
+    $.getJSON("{% url 'parking-citations' %}")
+    .done(function(data) {
+      $('#parking-citations').highcharts(data.chartData);
+    })
+
+  });
+{% endblock %}
