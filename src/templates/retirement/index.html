@@ -38,6 +38,19 @@
       <div id="rs-auth-positions" style="min-width: 500px; margin-top: 30px"></div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div id="rs-retiree-benefits" style="min-width: 500px; margin-top: 30px"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div id="rs-federated-funded" style="min-width: 500px; margin-top: 30px"></div>
+    </div>
+    <div class="col-sm-6">
+      <div id="rs-police-and-fire-funded" style="min-width: 500px; margin-top: 30px"></div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block javascript %}
@@ -51,5 +64,21 @@
     .done(function(data) {
       $('#rs-auth-positions').highcharts(data.chartData);
     })
+
+    $.getJSON("{% url 'rs-retiree-benefits' %}")
+    .done(function(data) {
+      $('#rs-retiree-benefits').highcharts(data.chartData);
+    });
+
+    $.getJSON("{% url 'rs-federated-funded' %}")
+    .done(function(data) {
+      $('#rs-federated-funded').highcharts(data.chartData);
+    });
+
+    $.getJSON("{% url 'rs-police-and-fire-funded' %}")
+    .done(function(data) {
+      $('#rs-police-and-fire-funded').highcharts(data.chartData);
+    });
+
   });
 {% endblock %}

@@ -74,7 +74,7 @@ def getPieData(data):
 def getColumnData(data):
     chartData = copy.deepcopy(defaultChartData)
     chartData["chart"]["type"] = "column"
-    category = "default"
+    category = defaultCategory = "default"
     seriesData = collections.OrderedDict()
     seriesArr = []
     xCategs = []
@@ -99,6 +99,8 @@ def getColumnData(data):
 
     for category in seriesData:
         series = {}
+        if category != defaultCategory:
+            series['name'] = category
         series["data"] = seriesData[category]
         seriesArr.append(series)
 
