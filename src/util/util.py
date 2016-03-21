@@ -40,7 +40,7 @@ defaultChartData = {
             "cursor": 'pointer',
             "dataLabels": {
                 "enabled": True,
-                "format": '<b>{point.name}</b>: ${point.y}'
+                "format": '<b>{point.name}</b>: ${point.y:.1f}'
             }
         },
         "series": {
