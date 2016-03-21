@@ -41,7 +41,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'transportation',
     'retirement_services',
-    'city_attorney'
 )
 
 MIDDLEWARE_CLASSES = (

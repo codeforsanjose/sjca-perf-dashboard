@@ -10,7 +10,4 @@ urlpatterns = [
 
     # retirement
     url(r'^retirement/', include('retirement_services.urls')),
-
-    # city attorney
-    url(r'^city-attorney/', include('city_attorney.urls'))
 ]
