@@ -50,6 +50,10 @@ def opExpenditure(request):
     chartData["title"]["text"] = "DOT Operating Expenditures ($millions)"
     chartData["yAxis"]["labels"]["format"] = "${value}"
 
+    html = '{series.name}: <b>${point.y:.2f}</b><br/>'
+    chartData["plotOptions"]["column"] = {
+        "tooltip": {"pointFormat": html}}
+
     response = {}
     response['chartData'] = chartData
     responseData = json.dumps(response)
@@ -63,6 +67,10 @@ def authPosition(request):
     # set series parameters
     chartData["series"][0]["name"] = "Authorized Positions"
     chartData["title"]["text"] = "DOT Authorized Positions"
+
+    html = '{series.name}: <b>${point.y:.1f}</b><br/>'
+    chartData["plotOptions"]["column"] = {
+        "tooltip": {"pointFormat": html}}
 
     response = {}
     response['chartData'] = chartData

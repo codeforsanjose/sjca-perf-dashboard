@@ -19,7 +19,7 @@ class OpExpByService(models.Model):
 class AuthPosition(models.Model):
     year = models.IntegerField(default=0)
     formattedYear = models.CharField(max_length=20)
-    value = models.IntegerField(default=0)
+    value = models.FloatField(default=0)
     active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -35,7 +35,7 @@ class OpExpenditure(models.Model):
     year = models.IntegerField(default=0)
     formattedYear = models.CharField(max_length=20)
     category = models.CharField(max_length=50)
-    value = models.IntegerField(default=0)
+    value = models.FloatField(default=0)
     active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
