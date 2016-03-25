@@ -1,3 +1,4 @@
+import copy
 from django.shortcuts import render_to_response
 from .models import OpExpByService, AuthPosition, OpExpenditure, \
 ModeOfCommute, SignalActivity, RoadwayMarking, ParkingDowntown, \
@@ -31,8 +32,8 @@ def opExpBySerivce(request):
     chartData = getChartData("pie", data)
 
     # set series parameters
-    chartData["series"][0]["name"] = "Service expenditure"
-    chartData["title"]["text"] = "Service expenditure"
+    chartData["series"][0]["name"] = "Operating Expenditures by Service ($millions)"
+    chartData["title"]["text"] = "Operating Expenditures by Service ($millions)"
 
     response = {}
     response['chartData'] = chartData
@@ -68,7 +69,7 @@ def authPosition(request):
     chartData["series"][0]["name"] = "Authorized Positions"
     chartData["title"]["text"] = "DOT Authorized Positions"
 
-    html = '{series.name}: <b>${point.y:.1f}</b><br/>'
+    html = '{series.name}: <b>{point.y:.1f}</b><br/>'
     chartData["plotOptions"]["column"] = {
         "tooltip": {"pointFormat": html}}
 
@@ -195,9 +196,18 @@ def streetSweeping(request):
     data = StreetSweeping.objects.filter(active=True)
     chartData = getChartData("column", data)
 
+    debrisYAxis = copy.deepcopy(chartData['yAxis'])
+    sweepingYAxis = chartData['yAxis']
+
+    debrisYAxis['labels']['title'] = 'Thousand tons'
+    sweepingYAxis['labels']['title'] = 'Thousand miles'
+    sweepingYAxis['opposite'] = True
+    chartData['yAxis'] = [debrisYAxis, sweepingYAxis]
+
     # set series parameters
     chartData["series"][0]["name"] = "Debris Collected (Thousand Tons)"
     chartData["series"][1]["name"] = "Curb Sweeping (Thousand Miles) [Right Axis]"
+    chartData["series"][1]["yAxis"] = 1
     chartData["series"][1]["type"] = "line"
     chartData["title"]["text"] = "Street Sweeping"
 
@@ -273,7 +283,7 @@ def pavementIndexSJ(request):
     chartData = getChartData("line", data)
 
     # set series parameters
-    chartData["series"][0]["name"] = "2014 Pavement Condition Index"
+    chartData["series"][0]["name"] = "Pavement Condition Index"
     chartData["title"]["text"] = "Pavement Condition Index San Jose"
 
     response = {}
