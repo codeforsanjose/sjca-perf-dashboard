@@ -50,6 +50,10 @@ def opExpenditure(request):
     chartData["title"]["text"] = "DOT Operating Expenditures ($millions)"
     chartData["yAxis"]["labels"]["format"] = "${value}"
 
+    html = '{series.name}: <b>${point.y:.2f}</b><br/>'
+    chartData["plotOptions"]["column"] = {
+        "tooltip": {"pointFormat": html}}
+
     response = {}
     response['chartData'] = chartData
     responseData = json.dumps(response)
@@ -63,6 +67,10 @@ def authPosition(request):
     # set series parameters
     chartData["series"][0]["name"] = "Authorized Positions"
     chartData["title"]["text"] = "DOT Authorized Positions"
+
+    html = '{series.name}: <b>${point.y:.1f}</b><br/>'
+    chartData["plotOptions"]["column"] = {
+        "tooltip": {"pointFormat": html}}
 
     response = {}
     response['chartData'] = chartData
@@ -236,7 +244,7 @@ def streetRepairs(request):
     chartData = getChartData("line", data)
 
     # set series parameters
-    chartData["series"][0]["name"] = "Roadway Markings"
+    chartData["series"][0]["name"] = "% of residents"
     chartData["title"]["text"] = "% of San Jose residents rating street repair as 'excellent or 'good'"
     chartData["yAxis"]["labels"]["format"] = "{value}%"
 
@@ -252,7 +260,7 @@ def pavementIndexArea(request):
 
     # set series parameters
     chartData["series"][0]["name"] = "2014 Pavement Condition Index"
-    chartData["title"]["text"] = "2014 Pavement Condition Index Selected Bay Area Comparisons*"
+    chartData["title"]["text"] = "Pavement Condition Index Selected Bay Area Comparisons*"
 
     response = {}
     response['chartData'] = chartData
@@ -266,7 +274,7 @@ def pavementIndexSJ(request):
 
     # set series parameters
     chartData["series"][0]["name"] = "2014 Pavement Condition Index"
-    chartData["title"]["text"] = "2014 Pavement Condition Index San Jose"
+    chartData["title"]["text"] = "Pavement Condition Index San Jose"
 
     response = {}
     response['chartData'] = chartData

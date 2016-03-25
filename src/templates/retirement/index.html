@@ -29,6 +29,22 @@
       Those changes are currently subject to legal challenges and/or are part of
       ongoing negotiations between the City and its bargaining units.
     </p>
+    <div class="info-text">
+      <p>
+        * Additional administrative costs totaling about $3.1 million
+        were paid out of the retirement funds, including $1.6 million
+        for professional services.  Retirement Services also spent
+        $184,000 of Citywide expenses.
+      </p>
+    </div>
+    <div class="info-text">
+      <p>
+        ** The Annual Required Contribution is an amount that actuaries
+        calculate is necessary to be contributed to a retirement plan
+        during the current year for the benefits to be fully funded over
+        time.
+      </p>
+    </div>
   </div>
   <div class="row">
     <div class="col-sm-6">
@@ -36,6 +52,19 @@
     </div>
     <div class="col-sm-6">
       <div id="rs-auth-positions" style="min-width: 500px; margin-top: 30px"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div id="rs-retiree-benefits" style="min-width: 500px; margin-top: 30px"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div id="rs-federated-funded" style="min-width: 500px; margin-top: 30px"></div>
+    </div>
+    <div class="col-sm-6">
+      <div id="rs-police-and-fire-funded" style="min-width: 500px; margin-top: 30px"></div>
     </div>
   </div>
 {% endblock %}
@@ -51,5 +80,21 @@
     .done(function(data) {
       $('#rs-auth-positions').highcharts(data.chartData);
     })
+
+    $.getJSON("{% url 'rs-retiree-benefits' %}")
+    .done(function(data) {
+      $('#rs-retiree-benefits').highcharts(data.chartData);
+    });
+
+    $.getJSON("{% url 'rs-federated-funded' %}")
+    .done(function(data) {
+      $('#rs-federated-funded').highcharts(data.chartData);
+    });
+
+    $.getJSON("{% url 'rs-police-and-fire-funded' %}")
+    .done(function(data) {
+      $('#rs-police-and-fire-funded').highcharts(data.chartData);
+    });
+
   });
 {% endblock %}
